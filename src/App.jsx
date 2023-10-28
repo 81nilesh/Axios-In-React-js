@@ -1,16 +1,30 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
+const AI = "https://jsonplaceholder.typicode.com/posts";
 
 function App() {
   const [myData, setMyData] = useState([]);
   const [isError, setIsError] = useState("");
 
+  // useEffect(() => {
+  //   axios
+  //     .get("https://jsonplaceholder.typicode.com/posts")
+  //     .then((res) => setMyData(res.data))
+  //     .catch((error) => setIsError(error.message));
+  // }, []);
+
+  const getApiData = async (url) => {
+    try {
+      const res = await axios.get(url);
+      setMyData(res.data);
+    } catch (error) {
+      setIsError(error.message);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts")
-      .then((res) => setMyData(res.data))
-      .catch((error) => setIsError(error.message));
+    getApiData(`${API}/posts`);
   }, []);
 
   return (
@@ -18,7 +32,7 @@ function App() {
       <h1>Axios Tutorial</h1>
       {isError !== "" && <h2>{isError}</h2>}
       <div className="grid">
-        {myData.map((post) => {
+        {myData.slice(0, 12).map((post) => {
           const { id, title, body } = post;
           return (
             <div className="card" key={id}>
