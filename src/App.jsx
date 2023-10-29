@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
-const API = "https://jsonplaceholder.typicode.com/posts";
+const API = "https://jsonplaceholder.typicode.com";
 
 function App() {
   const [myData, setMyData] = useState([]);
