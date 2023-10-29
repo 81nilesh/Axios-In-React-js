@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import axios from "axios";
+import axios from "./axios";
 const API = "https://jsonplaceholder.typicode.com";
 
 function App() {
@@ -14,9 +14,9 @@ function App() {
   //     .catch((error) => setIsError(error.message));
   // }, []);
 
-  const getApiData = async (url) => {
+  const getApiData = async () => {
     try {
-      const res = await axios.get(url);
+      const res = await axios.get("/posts");
       setMyData(res.data);
     } catch (error) {
       setIsError(error.message);
@@ -24,7 +24,7 @@ function App() {
   };
 
   useEffect(() => {
-    getApiData(`${API}/posts`);
+    getApiData();
   }, []);
 
   return (
